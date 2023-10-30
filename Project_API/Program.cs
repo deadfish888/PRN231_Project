@@ -7,12 +7,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var odataBuilder = new ODataConventionModelBuilder();
-
+odataBuilder.EntitySet<Student>("Students");
 odataBuilder.EntitySet<Course>("Courses");
-odataBuilder.EntitySet<Item>("Items");
+odataBuilder.EntitySet<Category>("Categorys");
 odataBuilder.EntitySet<Section>("Sections");
+odataBuilder.EntitySet<Item>("Items");
 odataBuilder.EntitySet<Resource>("Resources");
 odataBuilder.EntitySet<Assignment>("Assignments");
+odataBuilder.EntityType<CourseStudent>();
+odataBuilder.EntityType<StudentSubmission>();
 builder.Services.AddControllers()
                 .AddOData(options => options.AddRouteComponents("odata", odataBuilder.GetEdmModel())
                                              .EnableQueryFeatures(100))
@@ -22,6 +25,14 @@ builder.Services.AddDbContext<Prn231PrjContext>();
 //builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy =>
+        {
+            policy.WithOrigins("https://localhost:7236","http://localhost:5186").AllowAnyHeader().AllowAnyMethod();
+        });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -32,6 +43,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
+app.UseCors();
 app.UseAuthorization();
 
 app.MapControllers();

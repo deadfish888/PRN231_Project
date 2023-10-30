@@ -18,7 +18,7 @@ public partial class Item
     public virtual Assignment? Assignment { get; set; }
 
     [Expand]
-    public virtual Resource? Resource { get; set; } 
-
+    public virtual Resource? Resource { get; set; }
+    [Expand]
     public virtual Section? Section { get; set; }
 }

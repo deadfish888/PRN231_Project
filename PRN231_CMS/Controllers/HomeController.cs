@@ -19,21 +19,6 @@ namespace PRN231_CMS.Controllers
         string link = "https://localhost:7167/odata/";
         public async Task<IActionResult> IndexAsync()
         {
-            using (HttpClient client = new HttpClient())
-            {
-                using (HttpResponseMessage res = await client.GetAsync(link + "Courses"))
-                {
-                    using (HttpContent
-                        content = res.Content)
-                    {
-                        string data = await content.ReadAsStringAsync();
-                        var courses = JsonConvert.DeserializeObject<List<Course>>(JObject.Parse(data)["value"].ToString());
-                        Console.WriteLine(courses[0].ToString());
-                    }
-                }
-
-
-            }
             return View();
         } 
 

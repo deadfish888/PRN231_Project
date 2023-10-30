@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.OData.ModelBuilder;
+using System;
 using System.Collections.Generic;
 
 namespace Project_API.Models;
@@ -12,6 +13,6 @@ public partial class Resource
     public byte[]? Data { get; set; }
 
     public DateTime? UploadedDate { get; set; }
-
+    [Expand]
     public virtual Item? Item { get; set; }
 }

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Project_API.Models;
 
 public partial class StudentSubmission
 {
+    [Key]
     public int UserId { get; set; }
-
+    [Key]
     public int AssignmentId { get; set; }
 
     public bool? Status { get; set; }

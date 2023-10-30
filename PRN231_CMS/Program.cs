@@ -2,14 +2,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(
-        policy =>
-        {
-            policy.WithOrigins("https://cmshn.fpt.edu.vn/theme/font.php/trema/theme").AllowCredentials();
-        });
-});
 var app = builder.Build();
 
 
@@ -25,7 +17,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseCors();
 app.UseAuthorization();
 
 app.MapControllerRoute(

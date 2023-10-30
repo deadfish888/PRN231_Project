@@ -192,7 +192,7 @@ public partial class Prn231PrjContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("fullName");
             entity.Property(e => e.Img)
-                .HasMaxLength(50)
+                .HasMaxLength(500)
                 .IsUnicode(false)
                 .HasColumnName("img");
             entity.Property(e => e.Password)
