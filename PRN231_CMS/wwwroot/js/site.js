@@ -26,7 +26,6 @@ $(document).ready(function () {
             drawer.hasClass("closed") ? "true" : "false"
         );
     });
-    getStudentCourse(1);
 });
 const api = "https://localhost:7167/odata/";
 var getStudentCourse = (id) =>
@@ -41,9 +40,9 @@ const loadCoursesToNav = (data) => {
     $("#drop-down-menu").empty();
     data.forEach((ele) => {
         let html = `
-                <a class="dropdown-item" role="menuitem" href="" title="">${ele.Course.CourseName}</a>`;
+                <a class="dropdown-item" role="menuitem" href="/Course/Details?id=${ele.Course.CourseId}" title="">${ele.Course.CourseName}</a>`;
         $(`#drop-down-menu`).append(html);
-        html = `<a class="list-group-item list-group-item-action " href="" data-key="${ele.Course.CourseId}" data-isexpandable="1" data-indent="1" data-showdivider="0" data-type="20" data-nodetype="1" data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="mycourses">
+        html = `<a class="list-group-item list-group-item-action " href="/Course/Details?id=${ele.Course.CourseId}" data-key="${ele.Course.CourseId}" data-isexpandable="1" data-indent="1" data-showdivider="0" data-type="20" data-nodetype="1" data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="mycourses">
             <div class="m-l-1" >
                 <div class="media">
                     <span class="media-left">
@@ -67,7 +66,7 @@ var getCourseSections = (id) =>
 
 const loadSectionsToNav = (data) => {
     let html = `<nav class="list-group">
-        <a class="list-group-item list-group-item-action active" href="./Course?id=${data.CourseId}" data-key="coursehome" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="60" data-nodetype="0" data-collapse="0" data-forceopen="1" data-isactive="1" data-hidden="0" data-preceedwithhr="0">
+        <a class="list-group-item list-group-item-action active" href="/Course/Details?id=${data.CourseId}" data-key="coursehome" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="60" data-nodetype="0" data-collapse="0" data-forceopen="1" data-isactive="1" data-hidden="0" data-preceedwithhr="0">
             <div class="m-l-0">
                 <div class="media">
                     <span class="media-left">
@@ -77,7 +76,7 @@ const loadSectionsToNav = (data) => {
                 </div>
             </div>
         </a>
-        <a class="list-group-item list-group-item-action " href="${data.CourseId}" data-key="participants" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="90" data-nodetype="1" data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="${data.CourseId}">
+        <a class="list-group-item list-group-item-action " href="" data-key="participants" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="90" data-nodetype="1" data-collapse="0" data-forceopen="0" data-isactive="0" data-hidden="0" data-preceedwithhr="0" data-parent-key="${data.CourseId}">
             <div class="m-l-0">
                 <div class="media">
                     <span class="media-left">

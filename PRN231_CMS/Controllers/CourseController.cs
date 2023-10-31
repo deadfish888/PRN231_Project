@@ -27,5 +27,25 @@ namespace PRN231_CMS.Controllers
             }
             return View();
         }
+
+        public async Task<IActionResult> DetailsAsync(int id)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                using (HttpResponseMessage res = await client.GetAsync(link + "Courses("+id+")?$expand=Sections($expand=Items($expand=Resource,Assignment))"))
+                {
+                    using (HttpContent
+                        content = res.Content)
+                    {
+                        string data = await content.ReadAsStringAsync();
+                        var course = JsonConvert.DeserializeObject<Course>(data);
+                        ViewBag.currentCourse = course;
+                    }
+                }
+
+
+            }
+            return View();
+        }
     }
 }
