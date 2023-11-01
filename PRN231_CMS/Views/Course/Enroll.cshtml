@@ -1,0 +1,162 @@
+﻿
+@{
+    Course c = ViewBag.enrollCourse;
+    ViewData["Title"] = "Enroll: " + c.CourseName;
+    int i = 0;
+    Student u = ViewBag.user ;
+}
+<div id="page" class="container-fluid">
+    <header id="page-header" class="row">
+        <div class="col-12 pt-3 pb-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="mr-auto">
+                            <div class="page-context-header">
+                                <div class="page-header-headings"><h1>@c.CourseName</h1></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-wrap">
+                        <div id="page-navbar">
+                            <nav role="navigation" aria-label="Breadcrumb trail">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="/Home">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="/Course">Courses</a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="#">@c.Category?.CategoryName
+                                        </a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="/Course/Details?id=@c.CourseId"
+                                           title="@c.CourseName>@c.CourseName</a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="#">Enrol me in this course</a>
+                                    </li>
+
+                                </ol>
+                            </nav>
+                        </div>
+                        <div class="ml-auto d-flex"></div>
+                        <div id="course-header"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="page-content" class="row">
+        <div id="region-main-box" class="col-12">
+            <section id="region-main">
+                <div class="card" style="background-color:white">
+                    <div class="card-body">
+                        <span class="notifications" id="user-notifications"></span>
+                        <div role="main">
+                            <span id="maincontent"></span>
+                            <h2>Enrolment options</h2>
+                            <div class="box generalbox info py-3">
+                                <div class="">
+                                    <div class="card mb-3 course-card-view" data-courseid="@c.CourseId" data-type="1">
+                                        <a href="/Course/Details?id=@c.CourseId"
+                                           class="course-card-img">
+                                            <div style="
+                          background-image: url(&#039;data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MTciIGhlaWdodD0iNDE3Ij48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJyZ2IoMjIzLCAyMzAsIDIzMykiIC8+PHJlY3QgeD0iMy44NjY2NjY2NjY2NjY3IiB5PSIzLjg2NjY2NjY2NjY2NjciIHdpZHRoPSI1NC4xMzMzMzMzMzMzMzMiIGhlaWdodD0iNTQuMTMzMzMzMzMzMzMzIiBmaWxsPSJub25lIiBzdHJva2U9IiMyMjIiIHN0eWxlPSJvcGFjaXR5OjAuMDgwNjY2NjY2NjY2NjY3O3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PHJlY3QgeD0iMTkuMzMzMzMzMzMzMzMzIiB5PSIxOS4zMzMzMzMzMzMzMzMiIHdpZHRoPSIyMy4yIiBoZWlnaHQ9IjIzLjIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIyMiIgc3R5bGU9Im9wYWNpdHk6MC4xMTUzMzMzMzMzMzMzMztzdHJva2Utd2lkdGg6Ny43MzMzMzMzMzMzMzMzcHg7IiAvPjxyZWN0IHg9IjczLjQ2NjY2NjY2NjY2NyIgeT0iMy44NjY2NjY2NjY2NjY3IiB3aWR0aD0iNTQuMTMzMzMzMzMzMzMzIiBoZWlnaHQ9IjU0LjEzMzMzMzMzMzMzMyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjIyIiBzdHlsZT0ib3BhY2l0eTowLjExNTMzMzMzMzMzMzMzO3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PHJlY3QgeD0iODguOTMzMzMzMzMzMzMzIiB5PSIxOS4zMzMzMzMzMzMzMzMiIHdpZHRoPSIyMy4yIiBoZWlnaHQ9IjIzLjIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2RkZCIgc3R5bGU9Im9wYWNpdHk6MC4wODkzMzMzMzMzMzMzMzM7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSIxNDMuMDY2NjY2NjY2NjciIHk9IjMuODY2NjY2NjY2NjY2NyIgd2lkdGg9IjU0LjEzMzMzMzMzMzMzMyIgaGVpZ2h0PSI1NC4xMzMzMzMzMzMzMzMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIyMiIgc3R5bGU9Im9wYWNpdHk6MC4wMjg2NjY2NjY2NjY2Njc7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSIxNTguNTMzMzMzMzMzMzMiIHk9IjE5LjMzMzMzMzMzMzMzMyIgd2lkdGg9IjIzLjIiIGhlaWdodD0iMjMuMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZGRkIiBzdHlsZT0ib3BhY2l0eTowLjAyO3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PHJlY3QgeD0iMjEyLjY2NjY2NjY2NjY3IiB5PSIzLjg2NjY2NjY2NjY2NjciIHdpZHRoPSI1NC4xMzMzMzMzMzMzMzMiIGhlaWdodD0iNTQuMTMzMzMzMzMzMzMzIiBmaWxsPSJub25lIiBzdHJva2U9IiMyMjIiIHN0eWxlPSJvcGFjaXR5OjAuMDQ2O3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PHJlY3QgeD0iMjI4LjEzMzMzMzMzMzMzIiB5PSIxOS4zMzMzMzMzMzMzMzMiIHdpZHRoPSIyMy4yIiBoZWlnaHQ9IjIzLjIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2RkZCIgc3R5bGU9Im9wYWNpdHk6MC4xMDY2NjY2NjY2NjY2NztzdHJva2Utd2lkdGg6Ny43MzMzMzMzMzMzMzMzcHg7IiAvPjxyZWN0IHg9IjI4Mi4yNjY2NjY2NjY2NyIgeT0iMy44NjY2NjY2NjY2NjY3IiB3aWR0aD0iNTQuMTMzMzMzMzMzMzMzIiBoZWlnaHQ9IjU0LjEzMzMzMzMzMzMzMyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZGRkIiBzdHlsZT0ib3BhY2l0eTowLjA4OTMzMzMzMzMzMzMzMztzdHJva2Utd2lkdGg6Ny43MzMzMzMzMzMzMzMzcHg7IiAvPjxyZWN0IHg9IjI5Ny43MzMzMzMzMzMzMyIgeT0iMTkuMzMzMzMzMzMzMzMzIiB3aWR0aD0iMjMuMiIgaGVpZ2h0PSIyMy4yIiBmaWxsPSJub25lIiBzdHJva2U9IiNkZGQiIHN0eWxlPSJvcGFjaXR5OjAuMDg5MzMzMzMzMzMzMzMzO3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PHJlY3QgeD0iMzUxLjg2NjY2NjY2NjY3IiB5PSIzLjg2NjY2NjY2NjY2NjciIHdpZHRoPSI1NC4xMzMzMzMzMzMzMzMiIGhlaWdodD0iNTQuMTMzMzMzMzMzMzMzIiBmaWxsPSJub25lIiBzdHJva2U9IiNkZGQiIHN0eWxlPSJvcGFjaXR5OjAuMDcyO3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PHJlY3QgeD0iMzY3LjMzMzMzMzMzMzMzIiB5PSIxOS4zMzMzMzMzMzMzMzMiIHdpZHRoPSIyMy4yIiBoZWlnaHQ9IjIzLjIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIyMiIgc3R5bGU9Im9wYWNpdHk6MC4wOTg7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSIzLjg2NjY2NjY2NjY2NjciIHk9IjczLjQ2NjY2NjY2NjY2NyIgd2lkdGg9IjU0LjEzMzMzMzMzMzMzMyIgaGVpZ2h0PSI1NC4xMzMzMzMzMzMzMzMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIyMiIgc3R5bGU9Im9wYWNpdHk6MC4wODA2NjY2NjY2NjY2Njc7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSIxOS4zMzMzMzMzMzMzMzMiIHk9Ijg4LjkzMzMzMzMzMzMzMyIgd2lkdGg9IjIzLjIiIGhlaWdodD0iMjMuMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjIyIiBzdHlsZT0ib3BhY2l0eTowLjExNTMzMzMzMzMzMzMzO3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PHJlY3QgeD0iNzMuNDY2NjY2NjY2NjY3IiB5PSI3My40NjY2NjY2NjY2NjciIHdpZHRoPSI1NC4xMzMzMzMzMzMzMzMiIGhlaWdodD0iNTQuMTMzMzMzMzMzMzMzIiBmaWxsPSJub25lIiBzdHJva2U9IiMyMjIiIHN0eWxlPSJvcGFjaXR5OjAuMDYzMzMzMzMzMzMzMzMzO3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PHJlY3QgeD0iODguOTMzMzMzMzMzMzMzIiB5PSI4OC45MzMzMzMzMzMzMzMiIHdpZHRoPSIyMy4yIiBoZWlnaHQ9IjIzLjIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIyMiIgc3R5bGU9Im9wYWNpdHk6MC4xMzI2NjY2NjY2NjY2NztzdHJva2Utd2lkdGg6Ny43MzMzMzMzMzMzMzMzcHg7IiAvPjxyZWN0IHg9IjE0My4wNjY2NjY2NjY2NyIgeT0iNzMuNDY2NjY2NjY2NjY3IiB3aWR0aD0iNTQuMTMzMzMzMzMzMzMzIiBoZWlnaHQ9IjU0LjEzMzMzMzMzMzMzMyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZGRkIiBzdHlsZT0ib3BhY2l0eTowLjAzNzMzMzMzMzMzMzMzMztzdHJva2Utd2lkdGg6Ny43MzMzMzMzMzMzMzMzcHg7IiAvPjxyZWN0IHg9IjE1OC41MzMzMzMzMzMzMyIgeT0iODguOTMzMzMzMzMzMzMzIiB3aWR0aD0iMjMuMiIgaGVpZ2h0PSIyMy4yIiBmaWxsPSJub25lIiBzdHJva2U9IiNkZGQiIHN0eWxlPSJvcGFjaXR5OjAuMDI7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSIyMTIuNjY2NjY2NjY2NjciIHk9IjczLjQ2NjY2NjY2NjY2NyIgd2lkdGg9IjU0LjEzMzMzMzMzMzMzMyIgaGVpZ2h0PSI1NC4xMzMzMzMzMzMzMzMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIyMiIgc3R5bGU9Im9wYWNpdHk6MC4wODA2NjY2NjY2NjY2Njc7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSIyMjguMTMzMzMzMzMzMzMiIHk9Ijg4LjkzMzMzMzMzMzMzMyIgd2lkdGg9IjIzLjIiIGhlaWdodD0iMjMuMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZGRkIiBzdHlsZT0ib3BhY2l0eTowLjA4OTMzMzMzMzMzMzMzMztzdHJva2Utd2lkdGg6Ny43MzMzMzMzMzMzMzMzcHg7IiAvPjxyZWN0IHg9IjI4Mi4yNjY2NjY2NjY2NyIgeT0iNzMuNDY2NjY2NjY2NjY3IiB3aWR0aD0iNTQuMTMzMzMzMzMzMzMzIiBoZWlnaHQ9IjU0LjEzMzMzMzMzMzMzMyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjIyIiBzdHlsZT0ib3BhY2l0eTowLjExNTMzMzMzMzMzMzMzO3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PHJlY3QgeD0iMjk3LjczMzMzMzMzMzMzIiB5PSI4OC45MzMzMzMzMzMzMzMiIHdpZHRoPSIyMy4yIiBoZWlnaHQ9IjIzLjIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIyMiIgc3R5bGU9Im9wYWNpdHk6MC4wNjMzMzMzMzMzMzMzMzM7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSIzNTEuODY2NjY2NjY2NjciIHk9IjczLjQ2NjY2NjY2NjY2NyIgd2lkdGg9IjU0LjEzMzMzMzMzMzMzMyIgaGVpZ2h0PSI1NC4xMzMzMzMzMzMzMzMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIyMiIgc3R5bGU9Im9wYWNpdHk6MC4wMjg2NjY2NjY2NjY2Njc7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSIzNjcuMzMzMzMzMzMzMzMiIHk9Ijg4LjkzMzMzMzMzMzMzMyIgd2lkdGg9IjIzLjIiIGhlaWdodD0iMjMuMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZGRkIiBzdHlsZT0ib3BhY2l0eTowLjA3MjtzdHJva2Utd2lkdGg6Ny43MzMzMzMzMzMzMzMzcHg7IiAvPjxyZWN0IHg9IjMuODY2NjY2NjY2NjY2NyIgeT0iMTQzLjA2NjY2NjY2NjY3IiB3aWR0aD0iNTQuMTMzMzMzMzMzMzMzIiBoZWlnaHQ9IjU0LjEzMzMzMzMzMzMzMyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjIyIiBzdHlsZT0ib3BhY2l0eTowLjE1O3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PHJlY3QgeD0iMTkuMzMzMzMzMzMzMzMzIiB5PSIxNTguNTMzMzMzMzMzMzMiIHdpZHRoPSIyMy4yIiBoZWlnaHQ9IjIzLjIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIyMiIgc3R5bGU9Im9wYWNpdHk6MC4wOTg7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSI3My40NjY2NjY2NjY2NjciIHk9IjE0My4wNjY2NjY2NjY2NyIgd2lkdGg9IjU0LjEzMzMzMzMzMzMzMyIgaGVpZ2h0PSI1NC4xMzMzMzMzMzMzMzMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIyMiIgc3R5bGU9Im9wYWNpdHk6MC4wMjg2NjY2NjY2NjY2Njc7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSI4OC45MzMzMzMzMzMzMzMiIHk9IjE1OC41MzMzMzMzMzMzMyIgd2lkdGg9IjIzLjIiIGhlaWdodD0iMjMuMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjIyIiBzdHlsZT0ib3BhY2l0eTowLjA5ODtzdHJva2Utd2lkdGg6Ny43MzMzMzMzMzMzMzMzcHg7IiAvPjxyZWN0IHg9IjE0My4wNjY2NjY2NjY2NyIgeT0iMTQzLjA2NjY2NjY2NjY3IiB3aWR0aD0iNTQuMTMzMzMzMzMzMzMzIiBoZWlnaHQ9IjU0LjEzMzMzMzMzMzMzMyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZGRkIiBzdHlsZT0ib3BhY2l0eTowLjAyO3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PHJlY3QgeD0iMTU4LjUzMzMzMzMzMzMzIiB5PSIxNTguNTMzMzMzMzMzMzMiIHdpZHRoPSIyMy4yIiBoZWlnaHQ9IjIzLjIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2RkZCIgc3R5bGU9Im9wYWNpdHk6MC4xMjQ7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSIyMTIuNjY2NjY2NjY2NjciIHk9IjE0My4wNjY2NjY2NjY2NyIgd2lkdGg9IjU0LjEzMzMzMzMzMzMzMyIgaGVpZ2h0PSI1NC4xMzMzMzMzMzMzMzMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIyMiIgc3R5bGU9Im9wYWNpdHk6MC4wNjMzMzMzMzMzMzMzMzM7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSIyMjguMTMzMzMzMzMzMzMiIHk9IjE1OC41MzMzMzMzMzMzMyIgd2lkdGg9IjIzLjIiIGhlaWdodD0iMjMuMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZGRkIiBzdHlsZT0ib3BhY2l0eTowLjEyNDtzdHJva2Utd2lkdGg6Ny43MzMzMzMzMzMzMzMzcHg7IiAvPjxyZWN0IHg9IjI4Mi4yNjY2NjY2NjY2NyIgeT0iMTQzLjA2NjY2NjY2NjY3IiB3aWR0aD0iNTQuMTMzMzMzMzMzMzMzIiBoZWlnaHQ9IjU0LjEzMzMzMzMzMzMzMyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZGRkIiBzdHlsZT0ib3BhY2l0eTowLjA4OTMzMzMzMzMzMzMzMztzdHJva2Utd2lkdGg6Ny43MzMzMzMzMzMzMzMzcHg7IiAvPjxyZWN0IHg9IjI5Ny43MzMzMzMzMzMzMyIgeT0iMTU4LjUzMzMzMzMzMzMzIiB3aWR0aD0iMjMuMiIgaGVpZ2h0PSIyMy4yIiBmaWxsPSJub25lIiBzdHJva2U9IiMyMjIiIHN0eWxlPSJvcGFjaXR5OjAuMDI4NjY2NjY2NjY2NjY3O3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PHJlY3QgeD0iMzUxLjg2NjY2NjY2NjY3IiB5PSIxNDMuMDY2NjY2NjY2NjciIHdpZHRoPSI1NC4xMzMzMzMzMzMzMzMiIGhlaWdodD0iNTQuMTMzMzMzMzMzMzMzIiBmaWxsPSJub25lIiBzdHJva2U9IiNkZGQiIHN0eWxlPSJvcGFjaXR5OjAuMTI0O3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PHJlY3QgeD0iMzY3LjMzMzMzMzMzMzMzIiB5PSIxNTguNTMzMzMzMzMzMzMiIHdpZHRoPSIyMy4yIiBoZWlnaHQ9IjIzLjIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIyMiIgc3R5bGU9Im9wYWNpdHk6MC4xNTtzdHJva2Utd2lkdGg6Ny43MzMzMzMzMzMzMzMzcHg7IiAvPjxyZWN0IHg9IjMuODY2NjY2NjY2NjY2NyIgeT0iMjEyLjY2NjY2NjY2NjY3IiB3aWR0aD0iNTQuMTMzMzMzMzMzMzMzIiBoZWlnaHQ9IjU0LjEzMzMzMzMzMzMzMyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZGRkIiBzdHlsZT0ib3BhY2l0eTowLjA4OTMzMzMzMzMzMzMzMztzdHJva2Utd2lkdGg6Ny43MzMzMzMzMzMzMzMzcHg7IiAvPjxyZWN0IHg9IjE5LjMzMzMzMzMzMzMzMyIgeT0iMjI4LjEzMzMzMzMzMzMzIiB3aWR0aD0iMjMuMiIgaGVpZ2h0PSIyMy4yIiBmaWxsPSJub25lIiBzdHJva2U9IiNkZGQiIHN0eWxlPSJvcGFjaXR5OjAuMTA2NjY2NjY2NjY2Njc7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSI3My40NjY2NjY2NjY2NjciIHk9IjIxMi42NjY2NjY2NjY2NyIgd2lkdGg9IjU0LjEzMzMzMzMzMzMzMyIgaGVpZ2h0PSI1NC4xMzMzMzMzMzMzMzMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2RkZCIgc3R5bGU9Im9wYWNpdHk6MC4xNDEzMzMzMzMzMzMzMztzdHJva2Utd2lkdGg6Ny43MzMzMzMzMzMzMzMzcHg7IiAvPjxyZWN0IHg9Ijg4LjkzMzMzMzMzMzMzMyIgeT0iMjI4LjEzMzMzMzMzMzMzIiB3aWR0aD0iMjMuMiIgaGVpZ2h0PSIyMy4yIiBmaWxsPSJub25lIiBzdHJva2U9IiMyMjIiIHN0eWxlPSJvcGFjaXR5OjAuMTMyNjY2NjY2NjY2Njc7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSIxNDMuMDY2NjY2NjY2NjciIHk9IjIxMi42NjY2NjY2NjY2NyIgd2lkdGg9IjU0LjEzMzMzMzMzMzMzMyIgaGVpZ2h0PSI1NC4xMzMzMzMzMzMzMzMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIyMiIgc3R5bGU9Im9wYWNpdHk6MC4xMzI2NjY2NjY2NjY2NztzdHJva2Utd2lkdGg6Ny43MzMzMzMzMzMzMzMzcHg7IiAvPjxyZWN0IHg9IjE1OC41MzMzMzMzMzMzMyIgeT0iMjI4LjEzMzMzMzMzMzMzIiB3aWR0aD0iMjMuMiIgaGVpZ2h0PSIyMy4yIiBmaWxsPSJub25lIiBzdHJva2U9IiNkZGQiIHN0eWxlPSJvcGFjaXR5OjAuMTQxMzMzMzMzMzMzMzM7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSIyMTIuNjY2NjY2NjY2NjciIHk9IjIxMi42NjY2NjY2NjY2NyIgd2lkdGg9IjU0LjEzMzMzMzMzMzMzMyIgaGVpZ2h0PSI1NC4xMzMzMzMzMzMzMzMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2RkZCIgc3R5bGU9Im9wYWNpdHk6MC4xMDY2NjY2NjY2NjY2NztzdHJva2Utd2lkdGg6Ny43MzMzMzMzMzMzMzMzcHg7IiAvPjxyZWN0IHg9IjIyOC4xMzMzMzMzMzMzMyIgeT0iMjI4LjEzMzMzMzMzMzMzIiB3aWR0aD0iMjMuMiIgaGVpZ2h0PSIyMy4yIiBmaWxsPSJub25lIiBzdHJva2U9IiNkZGQiIHN0eWxlPSJvcGFjaXR5OjAuMDg5MzMzMzMzMzMzMzMzO3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PHJlY3QgeD0iMjgyLjI2NjY2NjY2NjY3IiB5PSIyMTIuNjY2NjY2NjY2NjciIHdpZHRoPSI1NC4xMzMzMzMzMzMzMzMiIGhlaWdodD0iNTQuMTMzMzMzMzMzMzMzIiBmaWxsPSJub25lIiBzdHJva2U9IiMyMjIiIHN0eWxlPSJvcGFjaXR5OjAuMTU7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSIyOTcuNzMzMzMzMzMzMzMiIHk9IjIyOC4xMzMzMzMzMzMzMyIgd2lkdGg9IjIzLjIiIGhlaWdodD0iMjMuMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZGRkIiBzdHlsZT0ib3BhY2l0eTowLjEyNDtzdHJva2Utd2lkdGg6Ny43MzMzMzMzMzMzMzMzcHg7IiAvPjxyZWN0IHg9IjM1MS44NjY2NjY2NjY2NyIgeT0iMjEyLjY2NjY2NjY2NjY3IiB3aWR0aD0iNTQuMTMzMzMzMzMzMzMzIiBoZWlnaHQ9IjU0LjEzMzMzMzMzMzMzMyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjIyIiBzdHlsZT0ib3BhY2l0eTowLjAyODY2NjY2NjY2NjY2NztzdHJva2Utd2lkdGg6Ny43MzMzMzMzMzMzMzMzcHg7IiAvPjxyZWN0IHg9IjM2Ny4zMzMzMzMzMzMzMyIgeT0iMjI4LjEzMzMzMzMzMzMzIiB3aWR0aD0iMjMuMiIgaGVpZ2h0PSIyMy4yIiBmaWxsPSJub25lIiBzdHJva2U9IiNkZGQiIHN0eWxlPSJvcGFjaXR5OjAuMDg5MzMzMzMzMzMzMzMzO3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PHJlY3QgeD0iMy44NjY2NjY2NjY2NjY3IiB5PSIyODIuMjY2NjY2NjY2NjciIHdpZHRoPSI1NC4xMzMzMzMzMzMzMzMiIGhlaWdodD0iNTQuMTMzMzMzMzMzMzMzIiBmaWxsPSJub25lIiBzdHJva2U9IiNkZGQiIHN0eWxlPSJvcGFjaXR5OjAuMTI0O3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PHJlY3QgeD0iMTkuMzMzMzMzMzMzMzMzIiB5PSIyOTcuNzMzMzMzMzMzMzMiIHdpZHRoPSIyMy4yIiBoZWlnaHQ9IjIzLjIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIyMiIgc3R5bGU9Im9wYWNpdHk6MC4wNjMzMzMzMzMzMzMzMzM7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSI3My40NjY2NjY2NjY2NjciIHk9IjI4Mi4yNjY2NjY2NjY2NyIgd2lkdGg9IjU0LjEzMzMzMzMzMzMzMyIgaGVpZ2h0PSI1NC4xMzMzMzMzMzMzMzMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2RkZCIgc3R5bGU9Im9wYWNpdHk6MC4xMjQ7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSI4OC45MzMzMzMzMzMzMzMiIHk9IjI5Ny43MzMzMzMzMzMzMyIgd2lkdGg9IjIzLjIiIGhlaWdodD0iMjMuMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZGRkIiBzdHlsZT0ib3BhY2l0eTowLjAyO3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PHJlY3QgeD0iMTQzLjA2NjY2NjY2NjY3IiB5PSIyODIuMjY2NjY2NjY2NjciIHdpZHRoPSI1NC4xMzMzMzMzMzMzMzMiIGhlaWdodD0iNTQuMTMzMzMzMzMzMzMzIiBmaWxsPSJub25lIiBzdHJva2U9IiMyMjIiIHN0eWxlPSJvcGFjaXR5OjAuMDk4O3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PHJlY3QgeD0iMTU4LjUzMzMzMzMzMzMzIiB5PSIyOTcuNzMzMzMzMzMzMzMiIHdpZHRoPSIyMy4yIiBoZWlnaHQ9IjIzLjIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIyMiIgc3R5bGU9Im9wYWNpdHk6MC4wMjg2NjY2NjY2NjY2Njc7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSIyMTIuNjY2NjY2NjY2NjciIHk9IjI4Mi4yNjY2NjY2NjY2NyIgd2lkdGg9IjU0LjEzMzMzMzMzMzMzMyIgaGVpZ2h0PSI1NC4xMzMzMzMzMzMzMzMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIyMiIgc3R5bGU9Im9wYWNpdHk6MC4wOTg7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSIyMjguMTMzMzMzMzMzMzMiIHk9IjI5Ny43MzMzMzMzMzMzMyIgd2lkdGg9IjIzLjIiIGhlaWdodD0iMjMuMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjIyIiBzdHlsZT0ib3BhY2l0eTowLjE1O3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PHJlY3QgeD0iMjgyLjI2NjY2NjY2NjY3IiB5PSIyODIuMjY2NjY2NjY2NjciIHdpZHRoPSI1NC4xMzMzMzMzMzMzMzMiIGhlaWdodD0iNTQuMTMzMzMzMzMzMzMzIiBmaWxsPSJub25lIiBzdHJva2U9IiNkZGQiIHN0eWxlPSJvcGFjaXR5OjAuMDcyO3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PHJlY3QgeD0iMjk3LjczMzMzMzMzMzMzIiB5PSIyOTcuNzMzMzMzMzMzMzMiIHdpZHRoPSIyMy4yIiBoZWlnaHQ9IjIzLjIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIyMiIgc3R5bGU9Im9wYWNpdHk6MC4wMjg2NjY2NjY2NjY2Njc7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSIzNTEuODY2NjY2NjY2NjciIHk9IjI4Mi4yNjY2NjY2NjY2NyIgd2lkdGg9IjU0LjEzMzMzMzMzMzMzMyIgaGVpZ2h0PSI1NC4xMzMzMzMzMzMzMzMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIyMiIgc3R5bGU9Im9wYWNpdHk6MC4wNjMzMzMzMzMzMzMzMzM7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSIzNjcuMzMzMzMzMzMzMzMiIHk9IjI5Ny43MzMzMzMzMzMzMyIgd2lkdGg9IjIzLjIiIGhlaWdodD0iMjMuMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjIyIiBzdHlsZT0ib3BhY2l0eTowLjExNTMzMzMzMzMzMzMzO3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PHJlY3QgeD0iMy44NjY2NjY2NjY2NjY3IiB5PSIzNTEuODY2NjY2NjY2NjciIHdpZHRoPSI1NC4xMzMzMzMzMzMzMzMiIGhlaWdodD0iNTQuMTMzMzMzMzMzMzMzIiBmaWxsPSJub25lIiBzdHJva2U9IiNkZGQiIHN0eWxlPSJvcGFjaXR5OjAuMDg5MzMzMzMzMzMzMzMzO3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PHJlY3QgeD0iMTkuMzMzMzMzMzMzMzMzIiB5PSIzNjcuMzMzMzMzMzMzMzMiIHdpZHRoPSIyMy4yIiBoZWlnaHQ9IjIzLjIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIyMiIgc3R5bGU9Im9wYWNpdHk6MC4wODA2NjY2NjY2NjY2Njc7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSI3My40NjY2NjY2NjY2NjciIHk9IjM1MS44NjY2NjY2NjY2NyIgd2lkdGg9IjU0LjEzMzMzMzMzMzMzMyIgaGVpZ2h0PSI1NC4xMzMzMzMzMzMzMzMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2RkZCIgc3R5bGU9Im9wYWNpdHk6MC4wMjtzdHJva2Utd2lkdGg6Ny43MzMzMzMzMzMzMzMzcHg7IiAvPjxyZWN0IHg9Ijg4LjkzMzMzMzMzMzMzMyIgeT0iMzY3LjMzMzMzMzMzMzMzIiB3aWR0aD0iMjMuMiIgaGVpZ2h0PSIyMy4yIiBmaWxsPSJub25lIiBzdHJva2U9IiNkZGQiIHN0eWxlPSJvcGFjaXR5OjAuMDM3MzMzMzMzMzMzMzMzO3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PHJlY3QgeD0iMTQzLjA2NjY2NjY2NjY3IiB5PSIzNTEuODY2NjY2NjY2NjciIHdpZHRoPSI1NC4xMzMzMzMzMzMzMzMiIGhlaWdodD0iNTQuMTMzMzMzMzMzMzMzIiBmaWxsPSJub25lIiBzdHJva2U9IiMyMjIiIHN0eWxlPSJvcGFjaXR5OjAuMTMyNjY2NjY2NjY2Njc7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSIxNTguNTMzMzMzMzMzMzMiIHk9IjM2Ny4zMzMzMzMzMzMzMyIgd2lkdGg9IjIzLjIiIGhlaWdodD0iMjMuMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjIyIiBzdHlsZT0ib3BhY2l0eTowLjA2MzMzMzMzMzMzMzMzMztzdHJva2Utd2lkdGg6Ny43MzMzMzMzMzMzMzMzcHg7IiAvPjxyZWN0IHg9IjIxMi42NjY2NjY2NjY2NyIgeT0iMzUxLjg2NjY2NjY2NjY3IiB3aWR0aD0iNTQuMTMzMzMzMzMzMzMzIiBoZWlnaHQ9IjU0LjEzMzMzMzMzMzMzMyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjIyIiBzdHlsZT0ib3BhY2l0eTowLjExNTMzMzMzMzMzMzMzO3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PHJlY3QgeD0iMjI4LjEzMzMzMzMzMzMzIiB5PSIzNjcuMzMzMzMzMzMzMzMiIHdpZHRoPSIyMy4yIiBoZWlnaHQ9IjIzLjIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIyMiIgc3R5bGU9Im9wYWNpdHk6MC4wODA2NjY2NjY2NjY2Njc7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSIyODIuMjY2NjY2NjY2NjciIHk9IjM1MS44NjY2NjY2NjY2NyIgd2lkdGg9IjU0LjEzMzMzMzMzMzMzMyIgaGVpZ2h0PSI1NC4xMzMzMzMzMzMzMzMiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIyMiIgc3R5bGU9Im9wYWNpdHk6MC4wOTg7c3Ryb2tlLXdpZHRoOjcuNzMzMzMzMzMzMzMzM3B4OyIgLz48cmVjdCB4PSIyOTcuNzMzMzMzMzMzMzMiIHk9IjM2Ny4zMzMzMzMzMzMzMyIgd2lkdGg9IjIzLjIiIGhlaWdodD0iMjMuMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZGRkIiBzdHlsZT0ib3BhY2l0eTowLjA3MjtzdHJva2Utd2lkdGg6Ny43MzMzMzMzMzMzMzMzcHg7IiAvPjxyZWN0IHg9IjM1MS44NjY2NjY2NjY2NyIgeT0iMzUxLjg2NjY2NjY2NjY3IiB3aWR0aD0iNTQuMTMzMzMzMzMzMzMzIiBoZWlnaHQ9IjU0LjEzMzMzMzMzMzMzMyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZGRkIiBzdHlsZT0ib3BhY2l0eTowLjA4OTMzMzMzMzMzMzMzMztzdHJva2Utd2lkdGg6Ny43MzMzMzMzMzMzMzMzcHg7IiAvPjxyZWN0IHg9IjM2Ny4zMzMzMzMzMzMzMyIgeT0iMzY3LjMzMzMzMzMzMzMzIiB3aWR0aD0iMjMuMiIgaGVpZ2h0PSIyMy4yIiBmaWxsPSJub25lIiBzdHJva2U9IiNkZGQiIHN0eWxlPSJvcGFjaXR5OjAuMDg5MzMzMzMzMzMzMzMzO3N0cm9rZS13aWR0aDo3LjczMzMzMzMzMzMzMzNweDsiIC8+PC9zdmc+&#039;);
+                        "
+                                                 class="card-img-top"></div>
+                                        </a>
+                                        <div class="card-body">
+                                            <h5 class="card-title text-center m-1">
+                                                <a class="/Course/Details?id=@c.CourseId"
+                                                   href="">@c.CourseName</a>
+                                            </h5>
+                                        </div>
+                                        <div class="card-block text-center">
+                                            <i class="icon fas fa-sign-in-alt fa-fw"
+                                               title="Self enrolment"
+                                               aria-label="Self enrolment"></i>
+                                            <div class="pull-right"></div>
+                                        </div>
+                                        <div class="card-footer teachers">
+                                            <ul>
+                                                <li>
+                                                    Course creator:
+                                                    <a href="#">@c.Creator</a>
+                                                </li>
+                                                <li>
+                                                    Teacher:
+                                                    <a href="#">@c.Teacher</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box generalbox py-3">
+                                <form autocomplete="off"
+                                      method="post"
+                                      asp-action="Enroll"
+                                      accept-charset="utf-8"
+                                      id="mform1"
+                                      class="mform">
+                                    <div style="display: none">
+                                        <input name="userId"
+                                               type="hidden"
+                                               value="@u?.UserId" />
+                                        <input name="courseId"
+                                               type="hidden"
+                                               value="@c.CourseId" />
+                                    </div>
+
+                                    <fieldset class="clearfix collapsible" id="id_selfheader">
+                                        <legend class="ftoggler">Self enrolment (Student)</legend>
+                                        <div class="fcontainer clearfix">
+                                            <div id="fitem_id_nokey"
+                                                 class="form-group row fitem femptylabel">
+                                                <div class="col-md-3">
+                                                    <span class="float-sm-right text-nowrap"> </span>
+                                                    <span class="col-form-label d-inline-block"> </span>
+                                                </div>
+                                                <div class="col-md-9 form-inline felement"
+                                                     data-fieldtype="static">
+                                                    <div class="form-control-static">
+                                                        No enrolment key required.
+                                                    </div>
+                                                    <div class="form-control-feedback invalid-feedback"
+                                                         id="id_error_nokey"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <div id="fitem_id_submitbutton"
+                                         class="form-group row fitem femptylabel">
+                                        <div class="col-md-3">
+                                            <span class="float-sm-right text-nowrap"> </span>
+                                            <label class="col-form-label d-inline"
+                                                   for="id_submitbutton">
+                                            </label>
+                                        </div>
+                                        <div class="col-md-9 form-inline felement"
+                                             data-fieldtype="submit">
+                                            <input type="submit"
+                                                   class="btn btn-primary"
+                                                   name="submitbutton"
+                                                   id="id_submitbutton"
+                                                   value="Enrol me" />
+                                            <div class="form-control-feedback invalid-feedback"
+                                                 id="id_error_submitbutton"></div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

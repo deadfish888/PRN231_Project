@@ -1,19 +1,21 @@
 ﻿@{
-    ViewData["Title"] = "CMS - Course Management System";
+    ViewData["Title"] = "CMSSF - Course Management System Super Fake";
 }
 
 <div id="page" class="container-fluid">
     <div id="frontpage-banner">
         <div id="frontpage-banner-content">
             <h2 class="pb-4 pl-3 mb-3">FPT EDUCATION</h2>
-            <h3 class="mb-3"> COURSE MANAGEMENT SYSTEM</h3>
+            <h3 class="mb-3"> COURSE MANAGEMENT SYSTEM SUPER FAKE</h3>
             <a href="course/" class="m-3 btn btn-primary" role="button">Learn more</a>
         </div>
     </div>
     <div role="main">
         <span id="maincontent"></span>
         <div class="box mdl-align py-3">
-            <form id="coursesearch" action="" method="get">
+            <form id="coursesearch" method="get"
+                asp-action="Search"
+            asp-controller="Course">
                 <fieldset class="coursesearchbox invisiblefieldset">
                     <label for="shortsearchbox">Search courses: </label>
                     <input type="text" id="shortsearchbox" size="12" name="search" value="" />

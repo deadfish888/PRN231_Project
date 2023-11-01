@@ -1,0 +1,126 @@
+﻿
+@{
+    ViewData["Title"] = "CMSSF: Search results";
+    string search = ViewBag.search;
+    List<Course> results = ViewBag.results;
+}
+<div id="page" class="container-fluid">
+    <header id="page-header" class="row">
+        <div class="col-12 pt-3 pb-3">
+            <div class="card" >
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="mr-auto">
+                            <div class="page-context-header">
+                                <div class="page-header-headings">
+                                    <h1>CMSSF</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-wrap">
+                        <div id="page-navbar">
+                            <nav role="navigation" aria-label="Breadcrumb trail">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="/Home">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="/Course">Courses</a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="/Course/Search">Search</a>
+                                    </li>
+                                    <li class="breadcrumb-item">@search</li>
+                                </ol>
+                            </nav>
+                        </div>
+                        <div class="ml-auto d-flex">
+                            <form id="coursesearchnavbar"
+                                  method="get"
+                                  asp-action="Search">
+                                <fieldset class="coursesearchbox invisiblefieldset">
+                                    <label for="navsearchbox">Search courses: </label>
+                                    <input type="text"
+                                           id="navsearchbox"
+                                           size="20"
+                                           name="search"
+                                           value="@search" />
+                                    <input type="submit" value="Go" />
+                                </fieldset>
+                            </form>
+                        </div>
+                        <div id="course-header"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="page-content" class="row">
+        <div id="region-main-box" class="col-12">
+            <section id="region-main">
+                <div class="card" style="background-color:white">
+                    <div class="card-body">
+                        <span class="notifications" id="user-notifications"></span>
+                        <div role="main">
+                            <span id="maincontent"></span>
+                            @if (results != null && results.Count!=0)
+                            {
+                                <h2>Search results: @results?.Count</h2>
+                                <div class="courses course-search-result course-search-result-search">
+                                    <div class="row card-deck my-4">
+                                        @foreach(var c in results)
+                                        {
+                                          <div class="card mb-3 course-card-view">
+                                            <div class="" data-courseid="@c.CourseId" data-type="1">
+
+                                                <div class="card-body">
+                                                    <h5 class="card-title text-center m-1">
+                                                        <a class=""
+                                                           href="/Course/Details?id=@c.CourseId">@c.CourseName</a>
+                                                    </h5>
+                                                </div>
+                                                <div class="card-block text-center">
+                                                    <i class="icon fas fa-sign-in-alt fa-fw"
+                                                       title="Self enrolment"
+                                                       aria-label="Self enrolment"></i>
+                                                    <div class="pull-right"></div>
+                                                </div>
+                                                <div class="card-footer teachers">
+                                                    <ul>
+                                                        <li>
+                                                            Course creator:
+                                                            <a href="#">@c.Creator</a>
+                                                        </li>
+                                                        <li>
+                                                            Teacher:
+                                                            <a href="#">@c.Teacher</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="coursecat text-center">
+                                                    Category:
+                                                    <a class=""
+                                                       href="#">@c.Category.CategoryName </a>
+                                                </div>
+                                            </div>
+                                        </div>  
+                                        }
+                                        
+                                    </div>
+                                </div>
+                            }
+                            else if (!string.IsNullOrEmpty(search))
+                            {
+                                <h2>No courses were found with the words '@search'</h2>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+

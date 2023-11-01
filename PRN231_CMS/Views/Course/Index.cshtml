@@ -1,1 +1,152 @@
-﻿
+﻿@{
+    ViewData["Title"] = "Course categories";
+    List<Category> categories = ViewBag.categories;
+}
+
+<div id="page" class="container-fluid">
+    <header id="page-header" class="row">
+        <div class="col-12 pt-3 pb-3">
+            <div class="card ">
+                <div class="card-body ">
+                    <div class="d-flex">
+                        <div class="mr-auto">
+                            <div class="page-context-header"><div class="page-header-headings"><h1>CMSSF</h1></div></div>
+                        </div>
+
+                    </div>
+                    <div class="d-flex flex-wrap">
+                        <div id="page-navbar">
+                            <nav role="navigation" aria-label="Breadcrumb trail">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="/Home">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="/Course" aria-current="page">Courses</a>
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                        <div class="ml-auto d-flex">
+                        </div>
+                        <div id="course-header">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="page-content" class="row">
+        <div id="region-main-box" class="col-12">
+            <section id="region-main">
+                <div class="card" style="background-color:white">
+                    <div class="card-body">
+                        <span class="notifications" id="user-notifications"></span>
+                        <div role="main">
+                            <span id="maincontent"></span><span></span>
+                            <form id="coursesearch" method="get" asp-action="Search">
+                                <fieldset class="coursesearchbox invisiblefieldset">
+                                    <label for="coursesearchbox">Search courses: </label>
+                                    <input type="text"
+                                           id="coursesearchbox"
+                                           size="30"
+                                           name="search"
+                                           value="" />
+                                    <input type="submit" value="Go" />
+                                </fieldset>
+                                <a class="btn btn-link p-0"
+                                   role="button"
+                                   data-container="body"
+                                   data-toggle="popover"
+                                   data-placement="right"
+                                   data-content='&lt;div class="no-overflow"&gt;&lt;p&gt;You can search for multiple words at once and can refine your search as follows:&lt;/p&gt;
+
+&lt;ul&gt;&lt;li&gt;word - find any match of this word within the text.&lt;/li&gt;
+&lt;li&gt;+word - only exact matching words will be found.&lt;/li&gt;
+&lt;li&gt;-word - don&#039;t include results containing this word.&lt;/li&gt;
+&lt;/ul&gt;&lt;/div&gt; '
+                                   data-html="true"
+                                   tabindex="0"
+                                   data-trigger="focus">
+                                    <i class="icon fas fa-question-circle text-info fa-fw"
+                                       title="Help with Search courses"
+                                       aria-label="Help with Search courses"></i>
+                                </a>
+                            </form>
+                            <div class="course_category_tree clearfix category-browse category-browse-0">
+                                <div class="collapsible-actions">
+                                <a class="collapseexpand" href="#">Expand all</a>
+                                </div>
+
+                                <div class="content">
+                                    <div class="subcategories">
+                                        @foreach (var c in categories)
+                                        {
+                                            <div class="category loaded @(c.Courses?.Count != 0? "with_children": "") collapsed"
+                                                 data-categoryid="@c.CategoryId"
+                                                 data-depth="1"
+                                                 data-showcourses="@c.Courses?.Count"
+                                                 data-type="0">
+                                                <div class="info">
+                                                    <h3 class="categoryname">
+                                                        <a href="#">@c.CategoryName</a>
+                                                    </h3>
+                                                </div>
+                                                <div class="content">
+                                                    @if (@c.Courses != null && @c.Courses.Count != 0)
+                                                    {
+                                                        <div class="courses">
+                                                            <div class="row card-deck my-4">
+                                                                @foreach (var cc in c.Courses)
+                                                                {
+                                                                    <div class="card mb-3 course-card-view" style="background-color: white; padding-bottom: 0;">
+                                                                        <div class="collapsed" data-courseid="@cc.CourseId" data-type="1">
+
+                                                                            <div class="card-body">
+                                                                                <h5 class="card-title text-center m-1">
+                                                                                    <a class=""
+                                                                                       href="/Course/Details?id=@cc.CourseId">@cc.CourseName</a>
+                                                                                </h5>
+                                                                            </div>
+                                                                            <div class="card-block text-center">
+                                                                                <i class="icon fas fa-sign-in-alt fa-fw"
+                                                                                   title="Self enrolment"
+                                                                                   aria-label="Self enrolment"></i>
+                                                                                <div class="pull-right"></div>
+                                                                            </div>
+                                                                            <div class="card-footer teachers">
+                                                                                <ul>
+                                                                                    <li>
+                                                                                        Course creator:
+                                                                                        <a href="#">@cc.Creator</a>
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        Teacher:
+                                                                                        <a href="#">@cc.Teacher</a>
+                                                                                    </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="buttons"></div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

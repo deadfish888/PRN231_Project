@@ -14,14 +14,16 @@
     <link rel="stylesheet" type="text/css" href="https://cmshn.fpt.edu.vn/theme/yui_combo.php?rollup/3.17.2/yui-moodlesimple-min.css" />
 
     <link rel="stylesheet" type="text/css" href="https://cmshn.fpt.edu.vn/theme/styles.php/trema/1697438386_1/all" />
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
 </head>
+@using Newtonsoft.Json;
 @{
     var tokenString = Context.Request.Cookies["Token"];
     Student? user = null;
+    
     if (!string.IsNullOrEmpty(tokenString))
     {
-        user = JwtUtils.DecodeJwt(tokenString);
+        String? userString = Context.Request.Cookies["User"];
+        user = JsonConvert.DeserializeObject<Student>(userString);
     }
 }
 
@@ -63,8 +65,12 @@
                     @if (user == null)
                     {
                         <li class="nav-item d-flex align-items-center">
-                            <div class="usermenu"><span class="login">You are not logged in. 
-                                (<a href="/Auth/Login">Log in</a>)</span></div>
+                            <div class="usermenu">
+                                <span class="login">
+                                    You are not logged in.
+                                    (<a href="/Auth/Login">Log in</a>)
+                                </span>
+                            </div>
                         </li>
                     }
                     else
@@ -138,7 +144,7 @@
         </div>
         <div id="nav-drawer" data-region="drawer" class="d-print-none moodle-has-zindex closed" aria-hidden="true" tabindex="-1">
             <nav id="all-courses" class="list-group">
-                <a class="list-group-item list-group-item-action active" href="" data-key="home" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="1" data-nodetype="1" data-collapse="0" data-forceopen="1" data-isactive="1" data-hidden="0" data-preceedwithhr="0">
+                <a class="list-group-item list-group-item-action active" href="/Home" data-key="home" data-isexpandable="0" data-indent="0" data-showdivider="0" data-type="1" data-nodetype="1" data-collapse="0" data-forceopen="1" data-isactive="1" data-hidden="0" data-preceedwithhr="0">
                     <div class="m-l-0">
                         <div class="media">
                             <span class="media-left">
@@ -182,8 +188,10 @@
                     <section class="col-12 text-center col-12-medium col-12-xsmall footer-info smalltext">
                         @if (user != null)
                         {
-                            <div class="logininfo">You are logged in as <a href="" title="View profile">@user.FullName</a> 
-                                (<a href="/Auth/Logout">Log out</a>)</div>
+                            <div class="logininfo">
+                                You are logged in as <a href="" title="View profile">@user.FullName</a>
+                                (<a href="/Auth/Logout">Log out</a>)
+                            </div>
                         }
                         else
                         {
@@ -199,12 +207,13 @@
         </footer>
     </div>
 
-
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script>
-        $(document).ready(function () {
-        @(user != null ? "getStudentCourse(" + user.UserId + ")" : "");
+        document.addEventListener('DOMContentLoaded', function () {
+            let token = '@tokenString';
+            @(user != null ? "getStudentCourse(" + user.UserId + ", token)" : "");
         });
     </script>
     @await RenderSectionAsync("Scripts", required: false)

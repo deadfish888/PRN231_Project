@@ -15,7 +15,7 @@ public partial class Course
     public string? Teacher { get; set; }
 
     public int? CategoryId { get; set; }
-    [AutoExpand]
+    [Expand]
     public virtual Category? Category { get; set; }
     [Expand]
     public virtual ICollection<CourseStudent> CourseStudents { get; set; } = new List<CourseStudent>();

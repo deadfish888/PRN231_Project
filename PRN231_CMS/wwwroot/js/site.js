@@ -26,12 +26,21 @@ $(document).ready(function () {
             drawer.hasClass("closed") ? "true" : "false"
         );
     });
+    $('.categoryname').click(function () {
+        var $category = $(this).closest('.category');
+        $category.toggleClass('collapsed');
+        var isCollapsed = $category.hasClass('collapsed');
+        $category.attr('aria-expanded', isCollapsed ? 'false' : 'true');
+    });
 });
 const api = "https://localhost:7167/odata/";
-var getStudentCourse = (id) =>
+var getStudentCourse = (id, token) =>
     $.ajax({
         url: api + `Students(${id})/CourseStudents?$expand=Course`,
         type: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+        },
         success: (data) => loadCoursesToNav(data["value"]),
         error: () => alert("error"),
     });
@@ -56,10 +65,13 @@ const loadCoursesToNav = (data) => {
     });
 }
 
-var getCourseSections = (id) =>
+var getCourseSections = (id, token) =>
     $.ajax({
         url: api + `Courses(${id})?$expand=Sections`,
         type: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+        },
         success: (data) => loadSectionsToNav(data),
         error: () => alert("error"),
     });
@@ -95,7 +107,7 @@ const loadSectionsToNav = (data) => {
         <div class="m-l-0">
         <div class="media">
         <span class="media-left">
-        <i class="icon fas fa-folder-o fa-fw " aria-hidden="true"></i>
+        <i class="icon fas fa-folder fa-fw " aria-hidden="true"></i>
         </span>
         <span class="media-body ">${ele.SectionName}</span>
         </div>

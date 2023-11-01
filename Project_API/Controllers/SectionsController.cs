@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Formatter;
 using Microsoft.AspNetCore.OData.Query;
@@ -7,6 +8,7 @@ using Project_API.Models;
 
 namespace Project_API.Controllers
 {
+    [Authorize("Student")]
     public class SectionsController : ODataController
     {
         Prn231PrjContext _db;

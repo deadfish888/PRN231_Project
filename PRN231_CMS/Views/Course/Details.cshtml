@@ -2,6 +2,7 @@
     Course c = ViewBag.currentCourse;
     ViewData["Title"] = "Course: " + c.CourseName;
     int i = 0;
+    var tokenString = Context.Request.Cookies["Token"];
 }
 
 <div id="page" class="container-fluid">
@@ -41,7 +42,7 @@
                                                  data-align="tr-br"
                                                  style="position: absolute; transform: translate3d(-442px, 24px, 0px); top: 0px; left: 0px; will-change: transform;">
                                                 <div class="dropdown-item">
-                                                    <a href="" id="action_link653fba91ec78317" class="" role="menuitem">
+                                                    <a href="/Course/Unenroll?id=@c.CourseId" id="action_link653fba91ec78317" class="" role="menuitem">
                                                         <i class="icon fas fa-user fa-fw" aria-hidden="true"></i>Unenroll me from @c.CourseName
                                                     </a>
                                                 </div>
@@ -97,57 +98,7 @@
 
                                 <h2 class="accesshide">Topic outline</h2>
                                 <ul class="topics">
-                                    <li id="section-0"
-                                        class="section main clearfix"
-                                        role="region"
-                                        aria-label="General">
-                                        <span class="hidden sectionname">General</span>
-                                        <div class="left side"></div>
-                                        <div class="right side">
-                                            <img class="icon spacer"
-                                                 width="1"
-                                                 height="1"
-                                                 alt=""
-                                                 aria-hidden="true"
-                                                 src="https://cmshn.fpt.edu.vn/theme/image.php/trema/core/1697438386/spacer" />
-                                        </div>
-                                        <div class="content">
-                                            <h3 class="sectionname accesshide">
-                                                <span>
-                                                    <a href="https://cmshn.fpt.edu.vn/course/view.php?id=4782#section-0">General</a>
-                                                </span>
-                                            </h3>
-                                            <div class="section_availability"></div>
-                                            <div class="summary"></div>
-                                            <ul class="section img-text">
-                                                <li class="activity forum modtype_forum"
-                                                    id="module-150351">
-                                                    <div>
-                                                        <div class="mod-indent-outer">
-                                                            <div class="mod-indent"></div>
-                                                            <div>
-                                                                <div class="activityinstance">
-                                                                    <a class=""
-                                                                       onclick=""
-                                                                       href="https://cmshn.fpt.edu.vn/mod/forum/view.php?id=150351">
-                                                                        <img src="https://cmshn.fpt.edu.vn/theme/image.php/trema/forum/1697438386/icon"
-                                                                             class="iconlarge activityicon"
-                                                                             alt=""
-                                                                             role="presentation"
-                                                                             aria-hidden="true" /><span class="instancename">
-                                                                            Diễn đàn tin tức<span class="accesshide">
-                                                                                Forum
-                                                                            </span>
-                                                                        </span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
+                                    
                                     @foreach (var s in c.Sections)
                                     {
                                         <li id="section-@i"
@@ -226,6 +177,6 @@
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        getCourseSections(@c.CourseId);
+        getCourseSections(@c.CourseId, '@tokenString');
     });
 </script>
