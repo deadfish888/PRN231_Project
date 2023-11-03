@@ -133,9 +133,8 @@
                                                                     <div>
                                                                         <div class="activityinstance">
                                                                             <a class=""
-                                                                               onclick=""
-                                                                               href="">
-                                                                                <img src=@(item.Type=="url"?"https://cmshn.fpt.edu.vn/theme/image.php/trema/url/1697438386/icon": (item.Type=="resource" ? "https://cmshn.fpt.edu.vn/theme/image.php/trema/core/1697438386/f/unknown-24" : "https://cmshn.fpt.edu.vn/theme/image.php/trema/assign/1697438386/icon"))
+                                                                               href="/Course/@item.Type?id=@(item.Resource != null ? item.Resource.ResourceId : item.Assignment?.AssignmentId)">
+                                                                                <img src=@(item.Type=="url"?"https://cmshn.fpt.edu.vn/theme/image.php/trema/url/1697438386/icon": (item.Type=="resource" ? "https://cmshn.fpt.edu.vn/theme/image.php/trema/core/1697438386/f/archive-24" : "https://cmshn.fpt.edu.vn/theme/image.php/trema/assign/1697438386/icon"))
                                                                                      class="iconlarge activityicon"
                                                                                      alt=""
                                                                                      role="presentation"

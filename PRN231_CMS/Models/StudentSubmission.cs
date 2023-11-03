@@ -11,7 +11,7 @@ public partial class StudentSubmission
 
     public bool? Status { get; set; }
 
-    public DateTime? LastModified { get; set; }
+    public DateTime LastModified { get; set; }
 
     public string? FileName { get; set; }
 

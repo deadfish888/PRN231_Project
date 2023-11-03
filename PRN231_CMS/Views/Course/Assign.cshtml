@@ -1,0 +1,162 @@
+﻿@{
+    ViewData["Title"] = "Assignment";
+    Course c = ViewBag.course;
+    Assignment a = ViewBag.assign;
+    StudentSubmission? ss = ViewData["studentSubmission"] as StudentSubmission;
+}
+<div id="page" class="container-fluid">
+    <header id="page-header" class="row">
+        <div class="col-12 pt-3 pb-3">
+            <div class="card ">
+                <div class="card-body ">
+                    <div class="d-flex">
+                        <div class="mr-auto">
+                            <div class="page-context-header"><div class="page-header-headings"><h1>@c.CourseName</h1></div></div>
+                        </div>
+
+                    </div>
+                    <div class="d-flex flex-wrap">
+                        <div id="page-navbar">
+                            <nav role="navigation" aria-label="Breadcrumb trail">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="/Home">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item">My courses</li>
+                                    <li class="breadcrumb-item">
+                                        <a href="/Course/Details?id=@c.CourseId" title="">@c.CourseName</a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="#">@a.Item?.Section?.SectionName</a>
+                                    </li>
+                                    <li class="breadcrumb-item">
+                                        <a href="#" aria-current="page" title="Assignment">@a.Item?.ItemName</a>
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                        <div class="ml-auto d-flex">
+                        </div>
+                        <div id="course-header">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="page-content" class="row">
+        <section id="region-main-box" class="col-12">
+            <section id="region-main">
+                <section class="card" style="background-color:white">
+                    <div class="card-body">
+                        <span class="notifications" id="user-notifications"></span>
+                        <div role="main">
+                            <span id="maincontent"></span><h2>@a.Item?.ItemName</h2><div id="intro" class="box generalbox boxaligncenter py-3"></div><div class="submissionstatustable">
+                                <h3>Submission status</h3><div class="box boxaligncenter submissionsummarytable py-3">
+                                    <table class="generaltable">
+                                        <tbody>
+                                            <tr class="">
+                                                <td class="cell c0" style="">Submission status</td>
+                                                @if (ViewData["studentSubmission"] == null)
+                                                {
+                                                    <td class="cell c1 lastcol" style="">No attempt</td>
+                                                }else{
+                                                    <td class="submissionstatussubmitted cell c1 lastcol" style="">Submitted for grading</td>
+                                                }
+                                                
+                                            </tr>
+                                            <tr class="">
+                                                <td class="cell c0" style="">Due date</td>
+                                                <td class="cell c1 lastcol" style="">@a.DueDate.ToString("dddd, d MMMM yyyy, hh:mm tt")</td>
+                                            </tr>
+                                            <tr class="">
+                                                <td class="cell c0" style="">Time remaining</td>
+                                                @if (ViewData["studentSubmission"] == null)
+                                                {
+                                                    if(a.DueDate.CompareTo(DateTime.Now) > 0)
+                                                    {
+                                                        TimeSpan tf = a.DueDate - DateTime.Now;
+                                                        <td class="cell c1 lastcol" style="">@tf.Days days @tf.Hours hours</td>
+                                                    }else{
+                                                        TimeSpan tf = DateTime.Now - a.DueDate;
+                                                        <td class="overdue cell c1 lastcol" style=""><font color="red">Assignment is overdue by: @tf.Days days @tf.Hours hours</font></td>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if (a.DueDate.CompareTo(ss.LastModified) < 0)
+                                                    {
+                                                        TimeSpan tf = ss.LastModified - a.DueDate;
+                                                        <td class="overdue cell c1 lastcol" style=""><font color="red">Assignment was submitted @tf.Days days @tf.Hours hours late</font></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        TimeSpan tf = a.DueDate - ss.LastModified;
+                                                        <td class="submissionstatussubmitted cell c1 lastcol" style="">Assignment was submitted @tf.Days days @tf.Hours hours early</td>
+                                                    }
+                                                    
+                                                }
+                                                
+                                            </tr>
+                                            <tr class="">
+                                                <td class="cell c0" style="">Last modified</td>
+                                                
+                                                    @if (ViewData["studentSubmission"] != null)
+                                                    {
+                                                        <td class="cell c1 lastcol" style="">
+                                                    <div class="row">
+                                                            <div class="fileuploadsubmission " style="display:inline-block; width:fit-content">
+                                                                <img class="icon icon" alt="@ss.FileName" 
+                                                                title="@ss.FileName" 
+                                                                src="https://cmshn.fpt.edu.vn/theme/image.php/trema/core/1697438386/f/archive"> 
+                                                                <a target="_blank" 
+                                                                    href="/Assign/File?id=@a.AssignmentId" >
+                                                                    @ss.FileName
+                                                                </a>
+                                                            </div>
+                                                            <div class="fileuploadsubmissiontime" 
+                                                                style="display:inline-block; width:fit-content">@ss.LastModified.ToString("d MMMM yyyy, hh:mm tt")</div>
+                                                        </div>
+                                                        </td>
+                                                    }else{
+                                                        <td class="cell c1 lastcol" style="">-</td>
+                                                    }
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div><div class="box generalbox submissionaction py-3" style="
+                                           text-align: center;">
+                                    <div class="singlebutton">
+                                            <button type="submit" class="btn btn-secondary"
+                                                    id="single_button654363451bae519"
+                                                    title="" onclick="window.location.href = '/Assign/Edit?id=@a.AssignmentId'">
+                                            @(ViewData["studentSubmission"] == null? "Add" : "Edit") submission
+                                            </button>
+                                    </div>
+                                    @if (ViewData["studentSubmission"] == null)
+                                    {
+                                        <div class="box boxaligncenter submithelp py-3">You have not made a submission yet</div>
+                                    }else{
+                                        <div class="box boxaligncenter submithelp py-3">You can still make changes to your submission</div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-t-2 m-b-1 activity-navigation">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="pull-left">
+                                        <a href="#" id="prev-activity-link" class="btn btn-link" title="Demo PRN211 SE1736"></a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </section>
+    </div>
+</div>

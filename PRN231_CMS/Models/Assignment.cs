@@ -9,7 +9,7 @@ public partial class Assignment
 
     public int? ItemId { get; set; }
 
-    public DateTime? DueDate { get; set; }
+    public DateTime DueDate { get; set; }
 
     public virtual Item? Item { get; set; }
 

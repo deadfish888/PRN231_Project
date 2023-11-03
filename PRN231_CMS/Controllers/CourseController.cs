@@ -141,5 +141,67 @@ namespace PRN231_CMS.Controllers
             }
             return View();
         }
+
+        public async Task<IActionResult> AssignAsync(int id)
+        {
+            var tokenString = HttpContext.Request.Cookies["Token"];
+            if (string.IsNullOrEmpty(tokenString))
+            {
+                return Redirect("/Auth/Login");
+            }
+            var userString = HttpContext.Request.Cookies["User"];
+            Student s = JsonConvert.DeserializeObject<Student>(userString);
+            using HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + tokenString);
+            using HttpResponseMessage res = await client.GetAsync(link + "Assignments(" + id + ")?$expand=Item($expand=Section)");
+            if (!res.IsSuccessStatusCode)
+            {
+                return Redirect("/Home");
+            }
+            using HttpContent content = res.Content;
+
+            string data = await content.ReadAsStringAsync();
+            var assign = JsonConvert.DeserializeObject<Assignment>(data);
+            ViewBag.assign = assign;
+
+            using HttpResponseMessage res2 = await client.GetAsync(link + "Courses(" + assign?.Item?.Section?.CourseId +")");
+            using HttpContent content2 = res2.Content;
+            data = await content2.ReadAsStringAsync();
+            var course = JsonConvert.DeserializeObject<Course>(data);
+            ViewBag.course = course;
+
+            using HttpResponseMessage res3 = await client.GetAsync(link + "StudentSubmissions(" + s.UserId +", "+assign.AssignmentId+ ")");
+            using HttpContent content3 = res3.Content;
+            if (res3.StatusCode == HttpStatusCode.NoContent)
+            {
+                return View();
+            }
+            data = await content3.ReadAsStringAsync();
+            var ss = JsonConvert.DeserializeObject<StudentSubmission>(data);
+            ViewData["studentSubmission"] = ss;
+            return View();
+        }
+
+        public async Task<IActionResult> ResourceAsync(int id)
+        {
+            var tokenString = HttpContext.Request.Cookies["Token"];
+            if (string.IsNullOrEmpty(tokenString))
+            {
+                return Redirect("/Auth/Login");
+            }
+            var userString = HttpContext.Request.Cookies["User"];
+            Student s = JsonConvert.DeserializeObject<Student>(userString);
+            using HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + tokenString);
+            using HttpResponseMessage res = await client.GetAsync(link + "Resources(" + id + ")?$expand=Item");
+            using HttpContent content = res.Content;
+            if (res.StatusCode == HttpStatusCode.NoContent)
+            {
+                return NoContent();
+            }
+            var data = await content.ReadAsStringAsync();
+            var ss = JsonConvert.DeserializeObject<Resource>(data);
+            return File(ss.Data, "application/octet-stream", ss.Item.ItemName);
+        }
     }
 }

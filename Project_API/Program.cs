@@ -19,7 +19,7 @@ odataBuilder.EntitySet<Item>("Items");
 odataBuilder.EntitySet<Resource>("Resources");
 odataBuilder.EntitySet<Assignment>("Assignments");
 odataBuilder.EntitySet<CourseStudent>("CourseStudents");
-odataBuilder.EntitySet<StudentSubmission>("StudentSubmission");
+odataBuilder.EntitySet<StudentSubmission>("StudentSubmissions");
 builder.Services.AddControllers()
                 .AddOData(options => options.AddRouteComponents("odata", odataBuilder.GetEdmModel())
                                              .EnableQueryFeatures(100))
