@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.OData.Routing.Attributes;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OData.UriParser;
 using Project_API.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
@@ -83,6 +84,40 @@ namespace Project_API.Controllers
             }
             return Ok(s.CourseStudents);
         }
+
+        public IActionResult Put([FromRoute]int key, [FromBody]StudentDTO student)
+        {
+            var s = _db.Students.Find(key);
+            if (s == null)
+            {
+                return NotFound();
+            }
+            s.FullName = student.FullName;
+            s.Description = student.Description;
+            s.Img = student.Img;
+            _db.Students.Update(s);_db.SaveChanges();
+            return Ok(new
+            {
+                UserId = s.UserId,
+                FullName = s.FullName,
+                EmailAddress = s.EmailAddress,
+                Img = s.Img,
+                Description = s.Description
+            });
+        }
+    }
+
+    public class StudentDTO
+    {
+        public int UserId { get; set; }
+
+        public string? FullName { get; set; }
+
+        public string EmailAddress { get; set; } = null!;
+
+        public string? Img { get; set; }
+
+        public string? Description { get; set; }
     }
 
     public class LoginDTO

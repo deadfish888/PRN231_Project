@@ -13,8 +13,12 @@ namespace PRN231_CMS.Controllers
             return View();
         }
 
-        public async Task<IActionResult> EditAsync(int id)
+        public async Task<IActionResult> EditAsync(int id, string msg)
         {
+            if (!string.IsNullOrWhiteSpace(msg))
+            {
+                ViewData["er"] = "true";
+            }
             var tokenString = HttpContext.Request.Cookies["Token"];
             if (string.IsNullOrEmpty(tokenString))
             {
@@ -58,7 +62,7 @@ namespace PRN231_CMS.Controllers
         {
             if (file == null)
             {
-                return Redirect("/Home");
+                return Redirect("/Assign/Edit?id="+assignId+"&msg=false");
             }
             var tokenString = HttpContext.Request.Cookies["Token"];
             if (string.IsNullOrEmpty(tokenString))

@@ -1,0 +1,172 @@
+﻿@{
+    Student u = ViewBag.user;
+    var tokenString = Context.Request.Cookies["Token"];
+}
+<div id="page" class="container-fluid">
+    <header id="page-header" class="row">
+        <div class="col-12 pt-3 pb-3">
+            <div class="card ">
+                <div class="card-body ">
+                    <div class="d-flex">
+                        <div class="mr-auto">
+                            <div class="page-context-header"><div class="page-header-image"><a href="/Profile"><img src="@u.Img" class="userpicture" width="100" height="100"  /></a></div><div class="page-header-headings"><h1>@u.FullName</h1></div></div>
+                        </div>
+
+                    </div>
+                    <div class="d-flex flex-wrap">
+                        <div id="page-navbar">
+                            <nav role="navigation" aria-label="Breadcrumb trail">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="/Home">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item">User account</li>
+                                    <li class="breadcrumb-item">
+                                        <a href="#" aria-current="page">Edit profile</a>
+                                    </li>
+                                </ol>
+                            </nav>
+                        </div>
+                        <div class="ml-auto d-flex">
+                        </div>
+                        <div id="course-header">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div id="page-content" class="row">
+        <div id="region-main-box" class="col-12">
+            <section id="region-main">
+                <div class="card">
+                    <div class="card-body">
+                        <span class="notifications" id="user-notifications"></span>
+                        <div role="main">
+                            <span id="maincontent"></span><h2>@u.FullName</h2>
+                            <form asp-action="Edit" 
+                                  method="post" accept-charset="utf-8" id="mform1" class="mform">
+
+                                <fieldset class="clearfix collapsible" id="id_moodle">
+                                    <legend class="ftoggler">General</legend>
+                                    <div class="fcontainer clearfix">
+                                        <input type="hidden" name="UserId" value="@u.UserId"/>
+                                        <div id="fitem_id_lastname" class="form-group row  fitem   ">
+                                            <div class="col-md-3">
+                                                <label class="col-form-label d-inline " for="id_name">
+                                                    Full Name
+                                                </label>
+                                            </div>
+                                            <div class="col-md-9 form-inline felement" data-fieldtype="text">
+                                                <input type="text"
+                                                       class="form-control "
+                                                       name="FullName"
+                                                       id="id_name"
+                                                       size="100"
+                                                       value="@u.FullName"   >
+                                                <div class="form-control-feedback invalid-feedback" id="id_error_lastname">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="fitem_id_email" class="form-group row  fitem   ">
+                                            <div class="col-md-3">
+                                                <label class="col-form-label d-inline " for="id_email">
+                                                    Email address
+                                                </label>
+                                            </div>
+                                            <div class="col-md-9 form-inline felement" data-fieldtype="text">
+                                                <input type="text"
+                                                       class="form-control "
+                                                       name="EmailAddress"
+                                                       id="id_email"
+                                                       value="@u.EmailAddress"
+                                                       size="30"
+                                                       maxlength="100" autocomplete="email" readonly>
+                                                <div class="form-control-feedback invalid-feedback" id="id_error_email">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="fitem_id_email" class="form-group row  fitem   ">
+                                            <div class="col-3">
+                                                <label class="col-form-label d-inline " for="id_description_editor">
+                                                    Description
+                                                </label>
+                                            </div>
+                                            <div class="col-md-9 form-inline felement" data-fieldtype="editor">
+                                                <div>
+                                                    <div>  
+                                                        <textarea id="id_description" 
+                                                            name="Description" 
+                                                            class="form-control" rows="8" cols="80" spellcheck="true">@u.Description</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </fieldset>
+                                <fieldset class="clearfix collapsible" id="id_moodle_picture">
+                                    <legend class="ftoggler">User picture</legend>
+                                    <div class="fcontainer clearfix">
+                                        <div id="fitem_id_currentpicture" class="form-group row  fitem   ">
+                                            <div class="col-md-3">
+                                                <span class="float-sm-right text-nowrap">
+                                                </span>
+                                                <span class="col-form-label d-inline-block ">
+                                                    Current picture
+                                                </span>
+                                            </div>
+                                            <div class="col-md-9 form-inline felement" data-fieldtype="static">
+                                                <div class="form-control-static">
+                                                    <a href="/Profile"><img src="@u.Img" class="userpicture" width="150" height="150" 
+                                                        /></a>
+                                                </div>
+                                                <input type="text" id="id_img" name="Img" value="@u.Img" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <div id="fgroup_id_buttonar" class="form-group row  fitem femptylabel  " data-groupname="buttonar">
+                                    <div class="col-md-3">
+                                        <label class="col-form-label d-inline " for="fgroup_id_buttonar">
+
+                                        </label>
+                                    </div>
+                                    <div class="col-md-9 form-inline felement" data-fieldtype="group">
+
+                                        <div class="form-group  fitem  ">
+                                            <span data-fieldtype="submit">
+                                                <input type="submit"
+                                                       class="btn btn-primary"
+                                                       name="submitbutton"
+                                                       id="id_submitbutton"
+                                                       value="Update profile">
+                                            </span>
+                                            <div class="form-control-feedback invalid-feedback" id="id_error_submitbutton">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group  fitem   btn-cancel">
+                                            <span data-fieldtype="submit">
+                                                <input type="submit"
+                                                       class="btn btn-secondary"
+                                                       name="cancel"
+                                                       id="id_cancel"
+                                                       value="Cancel">
+                                            </span>
+                                            <div class="form-control-feedback invalid-feedback" id="id_error_cancel">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

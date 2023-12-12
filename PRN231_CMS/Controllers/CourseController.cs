@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using PRN231_CMS.Models;
 using System.Text.Json.Nodes;
 using System.Net;
+using Humanizer;
 
 namespace PRN231_CMS.Controllers
 {
@@ -31,7 +32,7 @@ namespace PRN231_CMS.Controllers
             var userString = HttpContext.Request.Cookies["User"];
             Student s = JsonConvert.DeserializeObject<Student>(userString);
             using HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer "+tokenString);
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + tokenString);
 
             using HttpResponseMessage res = await client.GetAsync(link + "Courses(" + id + ")?$expand=Sections($expand=Items($expand=Resource,Assignment)),CourseStudents");
             if (res.StatusCode == System.Net.HttpStatusCode.Unauthorized)
@@ -59,7 +60,27 @@ namespace PRN231_CMS.Controllers
                 return View();
             }
             using HttpClient client = new HttpClient();
-            using HttpResponseMessage res = await client.GetAsync(link + "Courses?$filter=contains(CourseName, '"+search.Trim()+"')&$expand=Category");
+            var encodedSearch = Uri.EscapeDataString(search.Trim());
+            var queryParams = new Dictionary<string, string>
+{
+    { "$filter", $"contains(CourseName, '{encodedSearch}')" },
+    { "$expand", "Category" }
+};
+
+            var queryBuilder = new System.Text.StringBuilder("Courses?");
+            foreach (var kvp in queryParams)
+            {
+                queryBuilder.Append($"{kvp.Key}={kvp.Value}&");
+            }
+
+            var queryString = queryBuilder.ToString().TrimEnd('&');
+
+            using HttpResponseMessage res = await client.GetAsync(link + queryString);
+            if (res.StatusCode == HttpStatusCode.BadRequest)
+            {
+                ViewData["msg"] = "Bad Request";
+                return View();
+            }
             using HttpContent content = res.Content;
 
             string data = await content.ReadAsStringAsync();
@@ -111,7 +132,7 @@ namespace PRN231_CMS.Controllers
             Student s = JsonConvert.DeserializeObject<Student>(userString);
             using HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + tokenString);
-            using HttpResponseMessage res = await client.PostAsJsonAsync(link+"CourseStudents", new CourseStudent()
+            using HttpResponseMessage res = await client.PostAsJsonAsync(link + "CourseStudents", new CourseStudent()
             {
                 UserId = userId,
                 CourseId = courseId
@@ -164,13 +185,13 @@ namespace PRN231_CMS.Controllers
             var assign = JsonConvert.DeserializeObject<Assignment>(data);
             ViewBag.assign = assign;
 
-            using HttpResponseMessage res2 = await client.GetAsync(link + "Courses(" + assign?.Item?.Section?.CourseId +")");
+            using HttpResponseMessage res2 = await client.GetAsync(link + "Courses(" + assign?.Item?.Section?.CourseId + ")");
             using HttpContent content2 = res2.Content;
             data = await content2.ReadAsStringAsync();
             var course = JsonConvert.DeserializeObject<Course>(data);
             ViewBag.course = course;
 
-            using HttpResponseMessage res3 = await client.GetAsync(link + "StudentSubmissions(" + s.UserId +", "+assign.AssignmentId+ ")");
+            using HttpResponseMessage res3 = await client.GetAsync(link + "StudentSubmissions(" + s.UserId + ", " + assign.AssignmentId + ")");
             using HttpContent content3 = res3.Content;
             if (res3.StatusCode == HttpStatusCode.NoContent)
             {

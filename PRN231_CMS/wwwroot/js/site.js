@@ -119,3 +119,29 @@ const loadSectionsToNav = (data) => {
     });
     
 };
+
+var getCourses = (id, token) =>
+    $.ajax({
+        url: api + `Students(${id})/CourseStudents?$expand=Course`,
+        type: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+        },
+        success: (data) => {
+            loadToUl(data["value"]);
+        },
+        error: () => alert("error"),
+    });
+
+const loadToUl = (data) => {
+    $("#ulCourses").empty();
+    data.forEach((element) => {
+        var html = `
+                <li><a href="/Course/Details?id=${element.Course.CourseId}">
+                    ${element.Course.CourseName}
+                    </a>
+                </li>
+                `;
+        $('#ulCourses').append(html);
+    });
+};

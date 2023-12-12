@@ -115,7 +115,10 @@
                             {
                                 <h2>No courses were found with the words '@search'</h2>
                             }
-
+                            @if(ViewData["msg"] != null)
+                            {
+                                <h2>Bad Request - Please try again</h2>
+                            }
                         </div>
                     </div>
                 </div>
